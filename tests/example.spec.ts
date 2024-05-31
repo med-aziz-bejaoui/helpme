@@ -82,7 +82,7 @@ test.describe('login', () => {
       await page.getByRole('link', { name: 'Créer Compte' }).click();
       await expect(page).toHaveURL(`/signup`);
     });
-    test.only('Inscription avec des données valides', async ({ page }) => {
+    test('Inscription avec des données valides', async ({ page }) => {
       page.setDefaultTimeout(3000000);
 
       // Remplir chaque champ avec des données valides
