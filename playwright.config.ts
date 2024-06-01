@@ -10,6 +10,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 60000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -25,7 +26,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
      baseURL: 'http://141.94.190.7:8003',
-     
+     headless: true,
      launchOptions: {
       slowMo: 500,     // Ralentir l'exécution de chaque commande de 500ms
     },
