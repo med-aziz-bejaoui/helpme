@@ -18,12 +18,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests 
-<<<<<<< HEAD
-      run: xvfb-run node /tests/example.spec.js
-=======
-      
-
->>>>>>> de76c0cb4bf0530bad846a23892a4e8a41d87a4f
+      run: npx playwright test 
     - uses: actions/upload-artifact@v4
       if: always()
       with:
