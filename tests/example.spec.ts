@@ -257,7 +257,7 @@ test.describe('login', () => {
   
 
 
-      await page.locator('input[name="photoFile"]').setInputFiles('../photos/eminem.jpg');
+      await page.locator('input[name="phot  oFile"]').setInputFiles('./photos/eminem.jpg');
 
       await page.locator('input[name="cinFile"]').setInputFiles('../photos/CIN.jpeg');
 
