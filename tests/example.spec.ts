@@ -87,10 +87,10 @@ test.describe('login', () => {
 
       // Remplir chaque champ avec des données valides
       const fieldsData = {
-        'Nom d\'utilisateur': 'johndoe16',
+        'Nom d\'utilisateur': 'johndoe17',
         'Prénom': 'John',
         'Nom de famille': 'Doe',
-        'Email': 'john.doe16@example.com',
+        'Email': 'john.doe17@example.com',
         'Numéro de téléphone': '58959397',
         'Adresse principale': '123 Rue de la Paix',
         'Entrez votre nouveau mot de passe': 'StrongPassword123!',
@@ -438,8 +438,8 @@ test.describe('login', () => {
 
   
       // Remplir le formulaire avec un agent déjà existant
-      const username = 'agen15';
-      const email = 'emailagent15@example.com';
+      const username = 'agen16';
+      const email = 'emailagent16@example.com';
       const mot_de_passe = 'Forzalaroma12@';
       const nom = 'bejaoui';
       const prenom = 'aziz';
@@ -479,8 +479,8 @@ test.describe('login', () => {
     });
   
     test('Création d\'un compte admin avec des données valides', async ({ page }) => {
-      const username = 'admin1';
-      const email = 'admin1@example.com';
+      const username = 'admin2';
+      const email = 'admin2@example.com';
       const password = 'Forzalaroma12@';
       const firstName = 'John';
       const lastName = 'Doe';
