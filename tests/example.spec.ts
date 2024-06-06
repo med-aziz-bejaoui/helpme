@@ -87,10 +87,10 @@ test.describe('login', () => {
 
       // Remplir chaque champ avec des données valides
       const fieldsData = {
-        'Nom d\'utilisateur': 'johndoe9',
+        'Nom d\'utilisateur': 'johndoe16',
         'Prénom': 'John',
         'Nom de famille': 'Doe',
-        'Email': 'john.doe9@example.com',
+        'Email': 'john.doe16@example.com',
         'Numéro de téléphone': '58959397',
         'Adresse principale': '123 Rue de la Paix',
         'Entrez votre nouveau mot de passe': 'StrongPassword123!',
@@ -122,9 +122,14 @@ test.describe('login', () => {
       
       await page.getByText('S\'inscrire').click();
 
-      await expect(page).toHaveURL(`/Plans`);
-      await page.click('button:has-text("Sélectionner")');
 
+
+      await expect(page).toHaveURL(`/Plans`);
+      const alertLocator = page.locator('div[role="alert"]');
+      await expect(alertLocator).toBeVisible({ timeout: 10000 });
+      await expect(alertLocator).toHaveText('Inscription réussie ! Merci !');
+
+      await page.click('button:has-text("Sélectionner")');
       await page.fill('input#email', fieldsData.Email);
 
       const cardNumber = '4242424242424242';
@@ -149,7 +154,6 @@ test.describe('login', () => {
       const subscribeButton = page.locator('[data-testid="hosted-payment-submit-button"]');
   // Cliquer sur le bouton
       await subscribeButton.click();
-      await expect(page).toHaveURL(`/auth/login`);
 
       /*const submitButton = page.locator('a.login100-form-btn.btn-primary:has-text("S\'inscrire")');
       await submitButton.click();*/
@@ -223,6 +227,338 @@ test.describe('login', () => {
         await expect(errorLocator).toBeVisible();
       }
     });
+    test('Inscription avec un nom d\'utilisateur et un e-mail déjà existants', async ({ page }) => {
+
+      // Remplir chaque champ avec des données valides
+      const fieldsData = {
+        'Nom d\'utilisateur': 'johndoe9',
+        'Prénom': 'John',
+        'Nom de famille': 'Doe',
+        'Email': 'john.doe9@example.com',
+        'Numéro de téléphone': '58959397',
+        'Adresse principale': '123 Rue de la Paix',
+        'Entrez votre nouveau mot de passe': 'StrongPassword123!',
+        'Confirmez votre nouveau mot de passe': 'StrongPassword123!'
+
+      };
+  
+      for (const [placeholder, data] of Object.entries(fieldsData)) {
+        const input = page.locator(`input[placeholder="${placeholder}"]`);
+        await input.fill(data);
+      }
+  
+      // Sélectionner le sexe
+      const selectSexe = page.locator('select[name="sexe"]');
+      await selectSexe.selectOption({ label: 'HOMME' });
+  
+      // Sélectionner le groupe sanguin
+      const selectGroupSanguin = page.locator('select[name="groupSanguin"]');
+      await selectGroupSanguin.selectOption({ label: 'A+' });
+  
+
+
+      await page.locator('input[name="photoFile"]').setInputFiles('D:\\eminem-a-k-a-marshall-bruce-mathers-iii-attends-a-ceremony-news-photo-1698936282.jpg');
+
+      await page.locator('input[name="cinFile"]').setInputFiles('D:\\images.jpeg');
+
+
+      await page.getByText('Acceptez les termes et la').click();
+      
+      await page.getByText('S\'inscrire').click();
+
+      const alertLocator = page.locator('div[role="alert"]');
+
+      // Attendre et vérifier que l'alerte avec le message attendu est visible
+      await expect(alertLocator).toBeVisible({ timeout: 10000 });
+
+      // Vérifier le contenu de l'alerte
+      await expect(alertLocator).toHaveText("Le nom d'utilisateur ou l'e-mail est déjà utilisé. Veuillez en choisir un autre.");
+
+     
+    
+    });
+  });
+  test.describe('Tests de la liste des utilisateurs', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.getByRole('link', { name: 'Connexion' }).click();
+      await expect(page).toHaveURL(`/auth/login`);
+      await page.getByPlaceholder('Entrez votre nom d\'utilisateur').fill('Jihedadmin');
+      await page.getByPlaceholder('Entrez votre mot de passe').fill('Jihed123?');
+      await page.getByRole('button', { name: 'Connexion' }).click();
+      await expect(page).toHaveURL(`/dashboard`);
+      await page.click("text=Gestion Utilisateurs");
+      await page.click('a[href="/table/data-table"]');
+
+    });
+  
+    test('Filtrage des utilisateurs par nom', async ({ page }) => {
+      const nom = 'jihed';
+      await page.fill('input[placeholder="Entrer Username"]', nom);
+      await page.press('input[placeholder="Entrer Username"]', 'Enter');
+
+      const userRows = page.locator('tr.mat-row');
+      const userCount = await userRows.count();
+  
+      for (let i = 0; i < userCount; i++) {
+        const userName = await userRows.nth(i).locator('.cdk-column-Nom').innerText();
+        expect(userName.toLowerCase().startsWith(nom.toLowerCase())).toBeTruthy();
+
+      };
+    });
+      test('Filtrage des utilisateurs par prenom', async ({ page }) => {
+        const prenom = 'talbi';
+        await page.fill('input[placeholder="Entrer Username"]', prenom);
+        await page.press('input[placeholder="Entrer Username"]', 'Enter');
+  
+        const userRows = page.locator('tr.mat-row');
+        const userCount = await userRows.count();
+    
+        for (let i = 0; i < userCount; i++) {
+          const userFirstName = await userRows.nth(i).locator('.cdk-column-Pr-nom').innerText();
+          expect(userFirstName.toLowerCase().startsWith(prenom.toLowerCase())).toBeTruthy();
+        }
+    });
+    test('Filtrage des utilisateurs par email', async ({ page }) => {
+      const email = 'talbijihed@gmail.com';
+      await page.fill('input[placeholder="Entrer Username"]', email);
+      await page.press('input[placeholder="Entrer Username"]', 'Enter');
+
+      const userRows = page.locator('tr.mat-row');
+      const userCount = await userRows.count();
+  
+      for (let i = 0; i < userCount; i++) {
+        const userEmail = await userRows.nth(i).locator('.cdk-column-email').innerText();
+        expect(userEmail.toLowerCase().startsWith(email.toLowerCase())).toBeTruthy();
+      }
+  });
+
+  test('Sélection et modification d\'un utilisateur', async ({ page }) => {
+    const selectElement = await page.locator('.mat-select-value');
+    await selectElement.click();
+    await page.waitForSelector('.mat-select-panel');
+    const optionTen = await page.getByText('100');
+    await optionTen.click();
+
+    const userRow = page.locator('tr:has-text("agentCRM1")');
+    await userRow.locator('mat-checkbox').click();
+    const actionButtons = await page.locator('.action-buttons');
+
+    // Sélectionner le premier bouton (bouton modifier)
+    const modifierButton = await actionButtons.locator('button').nth(0);
+  
+    // Cliquer sur le bouton modifier
+    await modifierButton.click();   
+    await page.fill('input[placeholder="Entrer Nom"]', 'NouveauNom');
+    await page.fill('input[placeholder="Entrer Prénom"]', 'NouveauPrenom');
+    await page.fill('input[placeholder="Entrer Mot de passe"]', 'StrongPassword123!');
+
+    const buttonMettreAJour = await page.getByRole('button', { name: 'Mettre à jour' });
+    await buttonMettreAJour.click();
+
+    await expect(userRow.locator('.cdk-column-Nom')).toHaveText('NouveauNom');
+    await expect(userRow.locator('.cdk-column-Pr-nom')).toHaveText('NouveauPrenom');
+  });
+
+  
+  });
+  
+
+  test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.getByRole('link', { name: 'Connexion' }).click();
+      await expect(page).toHaveURL(`/auth/login`);
+      await page.getByPlaceholder('Entrez votre nom d\'utilisateur').fill('Jihedadmin');
+      await page.getByPlaceholder('Entrez votre mot de passe').fill('Jihed123?');
+      await page.getByRole('button', { name: 'Connexion' }).click();
+      await expect(page).toHaveURL(`/dashboard`);
+      await page.click("text=Gestion Utilisateurs");
+      await page.click('a[href="/table/data-table"]');
+      await page.click("text=Créer compte Agent CRM")
+    
+
+    });
+
+
+    test('Ajouter un nouvel agent CRM', async ({ page }) => {
+      const username = 'agen16';
+      const email = 'emailagent16@example.com';
+      const mot_de_passe = 'Forzalaroma12@';
+      const nom = 'bejaoui';
+      const prenom = 'aziz';
+      const adresse = 'Tunis';
+      const num_tel = '58959397';
+
+
+
+
+      // Remplir le formulaire
+      await page.fill('input[placeholder="Nom d\'Utilisateur"]', username);
+      await page.fill('input[placeholder="Email"]', email);
+      await page.fill('input[placeholder="Entrez Mot de passe"]', mot_de_passe);
+      await page.fill('input[placeholder="Confirmez mot de passe"]', mot_de_passe);
+      await page.fill('input[placeholder="Nom"]', nom);
+      await page.fill('input[placeholder="Prénom"]', prenom);
+      await page.fill('input[placeholder="adresse"]', adresse);
+      await page.fill('input[placeholder="Numéro de téléphone"]', num_tel);
+    
+
+      // Soumettre le formulaire
+      page.click("div.container-login100-form-btn a.login100-form-btn.btn-primary");
+
+  
+      // Vérifier que l'agent a été ajouté avec succès
+      const successMessage = page.locator('div[role="alert"]');
+      await expect(successMessage).toBeVisible();
+      await expect(successMessage).toHaveText('Inscription réussie ! Merci !');
+
+      await page.click("text=Gestion Utilisateurs");
+      await page.click('a[href="/table/data-table"]');
+
+      const selectElement = await page.locator('.mat-select-value');
+      await selectElement.click();
+      await page.waitForSelector('.mat-select-panel');
+      const optionTen = await page.getByText('100');
+      await optionTen.click();
+
+      const userRows = page.locator('tr.mat-row');
+      const userCount = await userRows.count();
+  
+      let userFound = false;
+
+      const userName = await userRows.nth(userCount-1).locator('.cdk-column-username').innerText();
+      const userEmail = await userRows.nth(userCount-1).locator('.cdk-column-email').innerText();
+      if (userName === username && userEmail === email) {
+        userFound = true;
+        }
+      expect(userFound).toBeTruthy();
+    });
+
+
+    test('Ajouter un agent CRM déjà existant et vérifier l\'alerte d\'erreur', async ({ page }) => {
+
+  
+      // Remplir le formulaire avec un agent déjà existant
+      const username = 'agen15';
+      const email = 'emailagent15@example.com';
+      const mot_de_passe = 'Forzalaroma12@';
+      const nom = 'bejaoui';
+      const prenom = 'aziz';
+      const adresse = 'Tunis';
+      const num_tel = '58959397';
+  
+      await page.fill('input[placeholder="Nom d\'Utilisateur"]', username);
+      await page.fill('input[placeholder="Email"]', email);
+      await page.fill('input[placeholder="Entrez Mot de passe"]', mot_de_passe);
+      await page.fill('input[placeholder="Confirmez mot de passe"]', mot_de_passe);
+      await page.fill('input[placeholder="Nom"]', nom);
+      await page.fill('input[placeholder="Prénom"]', prenom);
+      await page.fill('input[placeholder="adresse"]', adresse);
+      await page.fill('input[placeholder="Numéro de téléphone"]', num_tel);
+  
+      // Soumettre le formulaire
+      page.click("div.container-login100-form-btn a.login100-form-btn.btn-primary");
+  
+      // Vérifier que l'alerte d'erreur s'affiche
+      const errorMessage = page.locator('div[role="alert"]');
+      await expect(errorMessage).toBeVisible();
+      await expect(errorMessage).toHaveText("Le nom d'utilisateur ou l'e-mail est déjà utilisé. Veuillez en choisir un autre.");
+    });
+  });
+
+  test.describe('Tests de la création d\'un compte admin', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.getByRole('link', { name: 'Connexion' }).click();
+      await expect(page).toHaveURL(`/auth/login`);
+      await page.getByPlaceholder('Entrez votre nom d\'utilisateur').fill('Jihedadmin');
+      await page.getByPlaceholder('Entrez votre mot de passe').fill('Jihed123?');
+      await page.getByRole('button', { name: 'Connexion' }).click();
+      await expect(page).toHaveURL(`/dashboard`);
+      await page.click("text=Gestion Utilisateurs");
+      await page.click('a.slide-item[href="/charts/chartlist"]');
+
+    });
+  
+    test('Création d\'un compte admin avec des données valides', async ({ page }) => {
+      const username = 'admin1';
+      const email = 'admin1@example.com';
+      const password = 'Forzalaroma12@';
+      const firstName = 'John';
+      const lastName = 'Doe';
+      const address = 'Tunis';
+      const phoneNumber = '58959397';
+  
+      // Remplir les champs du formulaire avec des données valides
+      await page.fill('input[placeholder="Nom d\'Utilisateur"]', username);
+      await page.fill('input[placeholder="Email"]', email);
+      await page.fill('input[placeholder="Entrez Mot de passe"]', password);
+      await page.fill('input[placeholder="Confirmez mot de passe"]', password);
+      await page.fill('input[placeholder="Nom"]', firstName);
+      await page.fill('input[placeholder="Prénom"]', lastName);
+      await page.fill('input[placeholder="adresse"]', address);
+      await page.fill('input[placeholder="Numéro de téléphone"]', phoneNumber);
+  
+      // Soumettre le formulaire
+      page.click("div.container-login100-form-btn a.login100-form-btn.btn-primary");
+  
+      // Attendre la confirmation de la création du compte
+      await page.waitForSelector('div[role="alert"]');
+  
+      // Vérifier si l'alerte de confirmation s'affiche avec le bon message
+      const alertMessage = await page.innerText('div[role="alert"]');
+      expect(alertMessage).toContain('Inscription réussie ! Merci !');
+  
+      await page.click("text=Gestion Utilisateurs");
+      await page.click('a[href="/table/data-table"]');
+
+      const selectElement = await page.locator('.mat-select-value');
+      await selectElement.click();
+      await page.waitForSelector('.mat-select-panel');
+      const optionTen = await page.getByText('100');
+      await optionTen.click();
+
+      const userRows = page.locator('tr.mat-row');
+      const userCount = await userRows.count();
+  
+      let userFound = false;
+
+      const userName = await userRows.nth(userCount-1).locator('.cdk-column-username').innerText();
+      const userEmail = await userRows.nth(userCount-1).locator('.cdk-column-email').innerText();
+      if (userName === username && userEmail === email) {
+        userFound = true;
+        }
+      expect(userFound).toBeTruthy();
+    });
+    test('Tentative de création d\'un compte admin avec des données déjà existantes', async ({ page }) => {
+      const username = 'admin1';
+      const email = 'admin1@example.com';
+      const password = 'Forzalaroma12@';
+      const firstName = 'John';
+      const lastName = 'Doe';
+      const address = 'Tunis';
+      const phoneNumber = '58959397';
+  
+      // Remplir les champs du formulaire avec des données déjà existantes
+      await page.fill('input[placeholder="Nom d\'Utilisateur"]', username);
+      await page.fill('input[placeholder="Email"]', email);
+      await page.fill('input[placeholder="Entrez Mot de passe"]', password);
+      await page.fill('input[placeholder="Confirmez mot de passe"]', password);
+      await page.fill('input[placeholder="Nom"]', firstName);
+      await page.fill('input[placeholder="Prénom"]', lastName);
+      await page.fill('input[placeholder="adresse"]', address);
+      await page.fill('input[placeholder="Numéro de téléphone"]', phoneNumber);
+  
+      // Soumettre le formulaire
+      await page.click("div.container-login100-form-btn a.login100-form-btn.btn-primary");
+  
+      // Attendre l'apparition de l'alerte indiquant que le compte existe déjà
+      await page.waitForSelector('div[role="alert"]');
+  
+      // Vérifier si l'alerte de compte déjà existant s'affiche avec le bon message
+      const alertMessage = await page.innerText('div[role="alert"]');
+      expect(alertMessage).toContain('Le nom d\'utilisateur ou l\'e-mail est déjà utilisé. Veuillez en choisir un autre.');
+  });
+  
+    // (Facultatif) Ajoutez d'autres cas de test pour gérer différents scénarios
   });
 
 
