@@ -113,9 +113,9 @@ test.describe('login', () => {
   
 
 
-      await page.locator('input[name="photoFile"]').setInputFiles('photos\\eminem.jpg');
+      await page.locator('input[name="photoFile"]').setInputFiles('../photos/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('photos\\CIN.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('../photos/CIN.jpeg');
 
 
       await page.getByText('Acceptez les termes et la').click();
@@ -257,9 +257,9 @@ test.describe('login', () => {
   
 
 
-      await page.locator('input[name="photoFile"]').setInputFiles('D:\\eminem-a-k-a-marshall-bruce-mathers-iii-attends-a-ceremony-news-photo-1698936282.jpg');
+      await page.locator('input[name="photoFile"]').setInputFiles('../photos/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('D:\\images.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('../photos/CIN.jpeg');
 
 
       await page.getByText('Acceptez les termes et la').click();
