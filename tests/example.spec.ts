@@ -113,9 +113,9 @@ test.describe('login', () => {
   
 
 
-      await page.locator('input[name="photoFile"]').setInputFiles('D:\\eminem-a-k-a-marshall-bruce-mathers-iii-attends-a-ceremony-news-photo-1698936282.jpg');
+      await page.locator('input[name="photoFile"]').setInputFiles('..\photos\eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('D:\\images.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('..\photos\CIN.jpeg');
 
 
       await page.getByText('Acceptez les termes et la').click();
@@ -350,7 +350,7 @@ test.describe('login', () => {
     await modifierButton.click();   
     await page.fill('input[placeholder="Entrer Nom"]', 'NouveauNom');
     await page.fill('input[placeholder="Entrer Prénom"]', 'NouveauPrenom');
-    await page.fill('input[placeholder="Entrer Mot de passe"]', 'StrongPassword123!');
+    await page.fill('input[placeholder="Entrer Mot de passe"]', 'Kaymen23!');
 
     const buttonMettreAJour = await page.getByRole('button', { name: 'Mettre à jour' });
     await buttonMettreAJour.click();
