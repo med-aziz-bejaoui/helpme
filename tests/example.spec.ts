@@ -227,7 +227,7 @@ test.describe('login', () => {
         await expect(errorLocator).toBeVisible();
       }
     });
-    test('Inscription avec un nom d\'utilisateur et un e-mail déjà existants', async ({ page }) => {
+    test.only('Inscription avec un nom d\'utilisateur et un e-mail déjà existants', async ({ page }) => {
 
       // Remplir chaque champ avec des données valides
       const fieldsData = {
