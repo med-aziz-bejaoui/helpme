@@ -257,9 +257,9 @@ test.describe('login', () => {
   
 
 
-      await page.locator('input[name="photoFile"]').setInputFiles('./photos/eminem.jpg');
+      await page.locator('input[name="photoFile"]').setInputFiles('photos/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('./photos/CIN.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('photos/CIN.jpeg');
 
 
       await page.getByText('Acceptez les termes et la').click();
