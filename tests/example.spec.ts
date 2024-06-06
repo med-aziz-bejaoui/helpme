@@ -113,9 +113,9 @@ test.describe('login', () => {
   
 
 
-      await page.locator('input[name="photoFile"]').setInputFiles('../photos/eminem.jpg');
+      await page.locator('input[name="photoFile"]').setInputFiles('./photos/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('../photos/CIN.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('./photos/CIN.jpeg');
 
 
       await page.getByText('Acceptez les termes et la').click();
@@ -227,7 +227,7 @@ test.describe('login', () => {
         await expect(errorLocator).toBeVisible();
       }
     });
-    test.only('Inscription avec un nom d\'utilisateur et un e-mail déjà existants', async ({ page }) => {
+    test('Inscription avec un nom d\'utilisateur et un e-mail déjà existants', async ({ page }) => {
 
       // Remplir chaque champ avec des données valides
       const fieldsData = {
@@ -257,9 +257,9 @@ test.describe('login', () => {
   
 
 
-      await page.locator('input[name="photoFile"]').setInputFiles('photos/eminem.jpg');
+      await page.locator('input[name="photoFile"]').setInputFiles('./photos/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('photos/CIN.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('./photos/CIN.jpeg');
 
 
       await page.getByText('Acceptez les termes et la').click();
