@@ -1,0 +1,53 @@
+{
+    "createagentcrm": "text=Créer compte Agent CRM",
+    "gestionutilisateur": "text=Gestion Utilisateurs",
+    "loginPage": {
+      "loginurl": "/auth/login",
+      "usernamePlaceholder": "Entrez votre nom d'utilisateur",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "loginButton": "Connexion"
+    },
+    "loginvalide": {
+        "usernamevalide": "Jihedadmin",
+        "passwordvalide": "Jihed123?",
+        "dashboard": "/dashboard"
+      },
+    "loginpassinvalide": {
+        "usernamevalide": "Jihedadmin",
+        "passwordinvalide": "invalidPassword",
+        "erreurmessagelocator": "div.text-danger",
+        "erreurmessagevalue": "Le nom de l'utilisateur ou le mot de passe est incorrect"
+      },
+    "loginpassvide": {
+        "usernamevalide": "Jihedadmin",
+        "erreurmessagelocator": "div.text.text-danger.mt-1.ng-star-inserted",
+        "erreurmessagevalue": "Le mot de passe est requis"
+    },
+    "loginuservide": {
+        "passwordvalide": "Jihed123?",
+        "erreurmessagelocator": "div.text.text-danger.mt-1.ng-star-inserted",
+        "erreurmessagevalue": "Le nom d'utilisateur est requis"
+    },
+    "agencrmexemple": {
+      "username": "agen17",
+      "email": "emailagent17@example.com",
+      "password": "Forzalaroma12@",
+      "confirmPassword": "Forzalaroma12@",
+      "lastName": "bejaoui",
+      "firstName": "aziz",
+      "address": "Tunis",
+      "phoneNumber": "58959397"
+    },
+    "agencrmplaceholders": {
+      "username": "Nom d'Utilisateur",
+      "email": "Email",
+      "password": "Entrez Mot de passe",
+      "confirmPassword": "Confirmez mot de passe",
+      "lastName": "Nom",
+      "firstName": "Prénom",
+      "address": "adresse",
+      "phoneNumber": "Numéro de téléphone",
+      "submit": "div.container-login100-form-btn a.login100-form-btn.btn-primary"
+    }
+  }
+  
