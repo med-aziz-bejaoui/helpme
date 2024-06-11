@@ -183,7 +183,7 @@ test.describe('signup', () => {
 
       await page.locator('input[name="photoFile"]').setInputFiles('./tmp/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('../photos/CIN.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('./photos/CIN.jpeg');
 
 
       await page.getByText('Acceptez les termes et la').click();
