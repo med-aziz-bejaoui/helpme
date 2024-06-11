@@ -25,3 +25,16 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - name: Send email with the report
+      if: always()
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.your-email-provider.com
+        server_port: 587
+        username: mohamed-aziz.bejaoui@enis.tn
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: Playwright Test Report
+        body: Please find the attached Playwright test report.
+        to: bej939@gmail.com
+        from: mohamed-aziz.bejaoui@enis.tn
+        attachments: playwright-report/
