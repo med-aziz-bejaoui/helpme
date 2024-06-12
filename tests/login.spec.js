@@ -38,7 +38,7 @@ const { usernamePlaceholder, passwordPlaceholder, loginButton } = config.loginPa
     })
     test('Échec de connexion avec un champ mot de passe vide', async ({ page }) => {
       // create a new todo locator
-       const { usernamevalide,erreurmessagelocator, erreurmessagevalue} = config.loginpassvide;
+      const { usernamevalide,erreurmessagelocator, erreurmessagevalue} = config.loginpassvide;
 
       await page.getByPlaceholder(passwordPlaceholder).click();
   
