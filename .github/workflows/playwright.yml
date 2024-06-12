@@ -32,9 +32,6 @@ jobs:
         name: playwright-report
         path: playwright-report.zip
         retention-days: 30
-    - name: Wait for the upload to complete
-      if: always()
-      run: sleep 30s
     - name: Send email with the report
       if: always()
       uses: dawidd6/action-send-mail@v3
