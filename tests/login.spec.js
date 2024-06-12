@@ -19,7 +19,7 @@ const { usernamePlaceholder, passwordPlaceholder, loginButton } = config.loginPa
       await expect(page).toHaveURL(dashboard);
   
     })
-    test.only('Échec de connexion avec un mot de passe incorrect', async ({ page }) => {
+    test('Échec de connexion avec un mot de passe incorrect', async ({ page }) => {
       // create a new todo locator
       const { usernamevalide, passwordinvalide,erreurmessagelocator,erreurmessagevalue} = config.loginpassinvalide;
 
