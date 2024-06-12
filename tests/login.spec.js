@@ -10,7 +10,7 @@ const { usernamePlaceholder, passwordPlaceholder, loginButton } = config.loginPa
       await page.getByRole('link', { name: loginButton }).click();
       await expect(page).toHaveURL(`/auth/login`);
     });
-    test('Connexion réussie avec des identifiants valides', async ({ page }) => {
+    test.only('Connexion réussie avec des identifiants valides', async ({ page }) => {
         const { usernamevalide, passwordvalide,success } = config.loginvalide;
         // create a new todo locator
       await page.getByPlaceholder(usernamePlaceholder).fill(usernamevalide);
