@@ -11,7 +11,7 @@ const { usernamePlaceholder, passwordPlaceholder, loginButton } = config.loginPa
       await expect(page).toHaveURL(`/auth/login`);
     });
      test.only('Connexion réussie avec des identifiants valides', async ({ page }) => {
-      const { usernamevalide, passwordvalide,success } = config.loginvalide;
+       const { usernamevalide, passwordvalide,success } = config.loginvalide;
         // create a new todo locator
       await page.getByPlaceholder(usernamePlaceholder).fill(usernamevalide);
       await page.getByPlaceholder(passwordPlaceholder).fill(passwordvalide);
