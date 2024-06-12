@@ -29,7 +29,7 @@ jobs:
       if: always()
       uses: dawidd6/action-send-mail@v3
       with:
-        server_address: smtp.your-email-provider.com
+        server_address: smtp.gmail.com
         server_port: 587
         username: mohamed-aziz.bejaoui@enis.tn
         password: ${{ secrets.EMAIL_PASSWORD }}
