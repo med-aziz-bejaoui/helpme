@@ -27,6 +27,8 @@ jobs:
         retention-days: 30
     - name: Compress report directory
       run: zip -r playwright-report.zip playwright-report/
+    - name: List files for debugging
+      run: ls -la
     - name: Send email with the report
       if: always()
       uses: dawidd6/action-send-mail@v3
