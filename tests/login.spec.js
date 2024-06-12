@@ -10,7 +10,7 @@ const { usernamePlaceholder, passwordPlaceholder, loginButton } = config.loginPa
       await page.getByRole('link', { name: loginButton }).click();
       await expect(page).toHaveURL(`/auth/login`);
     });
-     test.only('Connexion réussie avec des identifiants valides', async ({ page }) => {
+     test('Connexion réussie avec des identifiants valides', async ({ page }) => {
        const { usernamevalide, passwordvalide,dashboard } = config.loginvalide;
         // create a new todo locator
       await page.getByPlaceholder(usernamePlaceholder).fill(usernamevalide);
@@ -19,7 +19,7 @@ const { usernamePlaceholder, passwordPlaceholder, loginButton } = config.loginPa
       await expect(page).toHaveURL(dashboard);
   
     })
-    test('Échec de connexion avec un mot de passe incorrect', async ({ page }) => {
+    test.only('Échec de connexion avec un mot de passe incorrect', async ({ page }) => {
       // create a new todo locator
       const { usernamevalide, passwordinvalide,erreurmessagelocator,erreurmessagevalue} = config.loginpassinvalide;
 
