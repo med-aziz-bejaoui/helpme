@@ -12,7 +12,7 @@ test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
       await page.getByRole('button', { name: config.loginPage.loginButton}).click();
       await expect(page).toHaveURL(config.loginvalide.dashboard);
       await page.click(config.gestionutilisateur);
-      await page.click(config.createagentcrm)
+      await page.click(config.createaccount)
     });
 
 
@@ -37,7 +37,7 @@ test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
         firstName: firstNamePlaceholder,
         address: addressPlaceholder,
         phoneNumber: phoneNumberPlaceholder,
-        submit
+        submit : submit
       } = config.agencrmplaceholders;
     
       await page.fill(`input[placeholder="${usernamePlaceholder}"]`, username);
@@ -48,6 +48,8 @@ test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
       await page.fill(`input[placeholder="${firstNamePlaceholder}"]`, firstName);
       await page.fill(`input[placeholder="${addressPlaceholder}"]`, address);
       await page.fill(`input[placeholder="${phoneNumberPlaceholder}"]`, phoneNumber);
+      await page.selectOption('#roles', { value: 'Agent CRM' });
+
       // Soumettre le formulaire
       page.click(submit);
 
@@ -71,9 +73,9 @@ test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
   
       let userFound = false;
 
-      const userName = await userRows.nth(userCount-1).locator('.cdk-column-username').innerText();
+      const userName = await userRows.nth(userCount-1).locator('.cdk-column-fullName').innerText();
       const userEmail = await userRows.nth(userCount-1).locator('.cdk-column-email').innerText();
-      if (userName === username && userEmail === email) {
+      if (userName === lastName+' '+firstName && userEmail === email) {
         userFound = true;
         }
       expect(userFound).toBeTruthy();
@@ -104,7 +106,7 @@ test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
         firstName: firstNamePlaceholder,
         address: addressPlaceholder,
         phoneNumber: phoneNumberPlaceholder,
-        submit
+        submit :submit
       } = config.agencrmplaceholders;
     
       await page.fill(`input[placeholder="${usernamePlaceholder}"]`, username);
@@ -115,6 +117,8 @@ test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
       await page.fill(`input[placeholder="${firstNamePlaceholder}"]`, firstName);
       await page.fill(`input[placeholder="${addressPlaceholder}"]`, address);
       await page.fill(`input[placeholder="${phoneNumberPlaceholder}"]`, phoneNumber);
+      await page.selectOption('#roles', { value: 'Agent CRM' });
+
       // Soumettre le formulaire
       page.click(submit);
   
@@ -123,43 +127,45 @@ test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
       await expect(errorMessage).toBeVisible();
       await expect(errorMessage).toHaveText("Le nom d'utilisateur ou l'e-mail est déjà utilisé. Veuillez en choisir un autre.");
     });
-  });
-
-  test.describe('Tests de la création d\'un compte admin', () => {
-    test.beforeEach(async ({ page }) => {
-      await page.getByRole('link', { name: 'Connexion' }).click();
-      await expect(page).toHaveURL(`/auth/login`);
-      await page.getByPlaceholder('Entrez votre nom d\'utilisateur').fill('Jihedadmin');
-      await page.getByPlaceholder('Entrez votre mot de passe').fill('Jihed123?');
-      await page.getByRole('button', { name: 'Connexion' }).click();
-      await expect(page).toHaveURL(`/dashboard`);
-      await page.click("text=Gestion Utilisateurs");
-      await page.click('a.slide-item[href="/charts/chartlist"]');
-
-    });
+ 
   
     test('Création d\'un compte admin avec des données valides', async ({ page }) => {
-      const username = 'admin3';
-      const email = 'admin3@example.com';
-      const password = 'Forzalaroma12@';
-      const firstName = 'John';
-      const lastName = 'Doe';
-      const address = 'Tunis';
-      const phoneNumber = '58959397';
-  
-      // Remplir les champs du formulaire avec des données valides
-      
-      await page.fill('input[placeholder="Nom d\'Utilisateur"]', username);
-      await page.fill('input[placeholder="Email"]', email);
-      await page.fill('input[placeholder="Entrez Mot de passe"]', password);
-      await page.fill('input[placeholder="Confirmez mot de passe"]', password);
-      await page.fill('input[placeholder="Nom"]', firstName);
-      await page.fill('input[placeholder="Prénom"]', lastName);
-      await page.fill('input[placeholder="adresse"]', address);
-      await page.fill('input[placeholder="Numéro de téléphone"]', phoneNumber);
-  
+      const {
+        username,
+        email,
+        password,
+        confirmPassword,
+        lastName,
+        firstName,
+        address,
+        phoneNumber
+      } = config.Adminexemple;
+    
+      const {
+        username: usernamePlaceholder,
+        email: emailPlaceholder,
+        password: passwordPlaceholder,
+        confirmPassword: confirmPasswordPlaceholder,
+        lastName: lastNamePlaceholder,
+        firstName: firstNamePlaceholder,
+        address: addressPlaceholder,
+        phoneNumber: phoneNumberPlaceholder,
+        submit : submit
+      } = config.adminplaceholders;
+    
+      await page.fill(`input[placeholder="${usernamePlaceholder}"]`, username);
+      await page.fill(`input[placeholder="${emailPlaceholder}"]`, email);
+      await page.fill(`input[placeholder="${passwordPlaceholder}"]`, password);
+      await page.fill(`input[placeholder="${confirmPasswordPlaceholder}"]`, confirmPassword);
+      await page.fill(`input[placeholder="${lastNamePlaceholder}"]`, lastName);
+      await page.fill(`input[placeholder="${firstNamePlaceholder}"]`, firstName);
+      await page.fill(`input[placeholder="${addressPlaceholder}"]`, address);
+      await page.fill(`input[placeholder="${phoneNumberPlaceholder}"]`, phoneNumber);
+      await page.selectOption('#roles', { value: 'Admin' });
+
       // Soumettre le formulaire
-      page.click("div.container-login100-form-btn a.login100-form-btn.btn-primary");
+      page.click(submit);
+
   
       // Attendre la confirmation de la création du compte
       await page.waitForSelector('div[role="alert"]');
@@ -190,26 +196,41 @@ test.describe('Tests de l\'interface d\'ajout d\'un agent CRM', () => {
       expect(userFound).toBeTruthy();
     });
     test('Tentative de création d\'un compte admin avec des données déjà existantes', async ({ page }) => {
-      const username = 'admin1';
-      const email = 'admin1@example.com';
-      const password = 'Forzalaroma12@';
-      const firstName = 'John';
-      const lastName = 'Doe';
-      const address = 'Tunis';
-      const phoneNumber = '58959397';
-  
-      // Remplir les champs du formulaire avec des données déjà existantes
-      await page.fill('input[placeholder="Nom d\'Utilisateur"]', username);
-      await page.fill('input[placeholder="Email"]', email);
-      await page.fill('input[placeholder="Entrez Mot de passe"]', password);
-      await page.fill('input[placeholder="Confirmez mot de passe"]', password);
-      await page.fill('input[placeholder="Nom"]', firstName);
-      await page.fill('input[placeholder="Prénom"]', lastName);
-      await page.fill('input[placeholder="adresse"]', address);
-      await page.fill('input[placeholder="Numéro de téléphone"]', phoneNumber);
-  
+      const {
+        username,
+        email,
+        password,
+        confirmPassword,
+        lastName,
+        firstName,
+        address,
+        phoneNumber
+      } = config.Adminexemple;
+    
+      const {
+        username: usernamePlaceholder,
+        email: emailPlaceholder,
+        password: passwordPlaceholder,
+        confirmPassword: confirmPasswordPlaceholder,
+        lastName: lastNamePlaceholder,
+        firstName: firstNamePlaceholder,
+        address: addressPlaceholder,
+        phoneNumber: phoneNumberPlaceholder,
+        submit : submit
+      } = config.adminplaceholders;
+    
+      await page.fill(`input[placeholder="${usernamePlaceholder}"]`, username);
+      await page.fill(`input[placeholder="${emailPlaceholder}"]`, email);
+      await page.fill(`input[placeholder="${passwordPlaceholder}"]`, password);
+      await page.fill(`input[placeholder="${confirmPasswordPlaceholder}"]`, confirmPassword);
+      await page.fill(`input[placeholder="${lastNamePlaceholder}"]`, lastName);
+      await page.fill(`input[placeholder="${firstNamePlaceholder}"]`, firstName);
+      await page.fill(`input[placeholder="${addressPlaceholder}"]`, address);
+      await page.fill(`input[placeholder="${phoneNumberPlaceholder}"]`, phoneNumber);
+      await page.selectOption('#roles', { value: 'Admin' });
+
       // Soumettre le formulaire
-      await page.click("div.container-login100-form-btn a.login100-form-btn.btn-primary");
+      page.click(submit);
   
       // Attendre l'apparition de l'alerte indiquant que le compte existe déjà
       await page.waitForSelector('div[role="alert"]');

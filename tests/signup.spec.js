@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import config from './variables.json';
 
 test.describe('signup', () => {
     test.beforeEach(async ({ page }) => {
@@ -11,12 +12,12 @@ test.describe('signup', () => {
 
       // Remplir chaque champ avec des données valides
       const fieldsData = {
-        'Nom d\'utilisateur': 'johndoe17',
-        'Prénom': 'John',
-        'Nom de famille': 'Doe',
-        'Email': 'john.doe17@example.com',
+        'Nom d\'utilisateur': 'AZIZBEJAOUI',
+        'Prénom': 'Aziz',
+        'Nom de famille': 'Bejaoui',
+        'Email': 'Mohamed-Aziz.Bejaoui@enis.tn',
         'Numéro de téléphone': '58959397',
-        'Adresse principale': '123 Rue de la Paix',
+        'Adresse principale': 'Tunis,Tunisie',
         'Entrez votre nouveau mot de passe': 'StrongPassword123!',
         'Confirmez votre nouveau mot de passe': 'StrongPassword123!'
 
@@ -39,9 +40,9 @@ test.describe('signup', () => {
 
       await page.locator('input[name="photoFile"]').setInputFiles('./tmp/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('./tmp/CIN.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('./tmp/cinAziz.pdf');
 
-
+                                                                                                                                                                   
       await page.getByText('Acceptez les termes et la').click();
       
       await page.getByText('S\'inscrire').click();
@@ -69,17 +70,21 @@ test.describe('signup', () => {
 
       const billingCountry = 'TN';
       await page.selectOption('select#billingCountry', billingCountry);
+      
+      for (let i = 0; i <= 5; i++) {
+        await page.getByTestId(`sms-code-input-${i}`).fill(`0`);
+      }
+    
+     // await page.check('input#enableStripePass');
 
-      await page.check('input#enableStripePass');
-
-      await page.locator('input[id="phoneNumber"]').fill(fieldsData['Numéro de téléphone']);
+     // await page.locator('input[id="phoneNumber"]').fill(fieldsData['Numéro de téléphone']);
 
   // Sélectionner le bouton par son attribut data-testid
       const subscribeButton = page.locator('[data-testid="hosted-payment-submit-button"]');
   // Cliquer sur le bouton
       await subscribeButton.click();
 
-      /*const submitButton = page.locator('a.login100-form-btn.btn-primary:has-text("S\'inscrire")');
+               /*const submitButton  = page.locator('a.login100-form-btn.btn-primary:has-text("S\'inscrire")');
       await submitButton.click();*/
   
       // Vérifier la réussite de l'inscription (vous devrez ajuster cette vérification en fonction de votre site)

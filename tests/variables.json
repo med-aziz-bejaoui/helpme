@@ -1,5 +1,5 @@
 {
-    "createagentcrm": "text=Créer compte Agent CRM",
+    "createaccount": "text=Créer un Compte",
     "gestionutilisateur": "text=Gestion Utilisateurs",
     "loginPage": {
       "loginurl": "/auth/login",
@@ -8,9 +8,9 @@
       "loginButton": "Connexion"
     },
     "loginvalide": {
-        "usernamevalide": "Jihedadmin",
-        "passwordvalide": "Jihed123?",
-        "dashboard": "/dashboard"
+        "usernamevalide": "Adminaymen",
+        "passwordvalide": "Kaymen23!",
+        "dashboard": "/apps/chat"
       },
     "loginpassinvalide": {
         "usernamevalide": "Jihedadmin",
@@ -29,8 +29,8 @@
         "erreurmessagevalue": "Le nom d'utilisateur est requis"
     },
     "agencrmexemple": {
-      "username": "agen17",
-      "email": "emailagent17@example.com",
+      "username": "agen19",
+      "email": "emailagent19@example.com",
       "password": "Forzalaroma12@",
       "confirmPassword": "Forzalaroma12@",
       "lastName": "bejaoui",
@@ -48,6 +48,27 @@
       "address": "adresse",
       "phoneNumber": "Numéro de téléphone",
       "submit": "div.container-login100-form-btn a.login100-form-btn.btn-primary"
+    },
+    "adminplaceholders": {
+      "username": "Nom d'Utilisateur",
+      "email": "Email",
+      "password": "Entrez Mot de passe",
+      "confirmPassword": "Confirmez mot de passe",
+      "lastName": "Nom",
+      "firstName": "Prénom",
+      "address": "adresse",
+      "phoneNumber": "Numéro de téléphone",
+      "submit": "div.container-login100-form-btn a.login100-form-btn.btn-primary"
+    },
+    "Adminexemple": {
+      "username": "admin1",
+      "email": "emailadmin1@example.com",
+      "password": "Forzalaroma12@",
+      "confirmPassword": "Forzalaroma12@",
+      "lastName": "bejaoui",
+      "firstName": "aziz",
+      "address": "Tunis",
+      "phoneNumber": "58959397"
     }
   }
   
