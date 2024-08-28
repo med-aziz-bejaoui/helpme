@@ -25,6 +25,8 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - name: Compress report
+      run: tar -czf playwright-report.tar.gz -C playwright-report .
     - name: Send email with the report
       if: always()
       uses: dawidd6/action-send-mail@v3
@@ -37,4 +39,4 @@ jobs:
         body: Please find the attached Playwright test report.
         to: bej939@gmail.com
         from: mohamed-aziz.bejaoui@enis.tn
-        attachments: playwright-report/
+        attachments: playwright-report.tar.gz
