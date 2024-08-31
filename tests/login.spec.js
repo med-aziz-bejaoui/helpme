@@ -4,7 +4,7 @@ import config from './variables.json';
 
 const { loginurl,usernamePlaceholder, passwordPlaceholder, loginButton } = config.loginPage;
 
-  test.describe('loginn', () => {
+  test.describe('login', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto('');
       await page.getByRole('link', { name: loginButton }).click();
