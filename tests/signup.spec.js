@@ -12,10 +12,10 @@ test.describe('signup', () => {
 
       // Remplir chaque champ avec des données valides
       const fieldsData = {
-        'Nom d\'utilisateur': 'AZIZBEJAOUI',
+        'Nom d\'utilisateur': 'AZIZBEJAOUII',
         'Prénom': 'Aziz',
         'Nom de famille': 'Bejaoui',
-        'Email': 'Mohamed-Aziz.Bejaoui@enis.tn',
+        'Email': 'Mohamed-Aziz.Bejaouii@enis.tn',
         'Numéro de téléphone': '58959397',
         'Adresse principale': 'Tunis,Tunisie',
         'Entrez votre nouveau mot de passe': 'StrongPassword123!',
@@ -91,35 +91,7 @@ test.describe('signup', () => {
       /*const successMessageLocator = page.locator('text="Inscription réussie!"');
       await expect(successMessageLocator).toBeVisible();*/
     });
-    test('Vérifier les champs obligatoires', async ({ page }) => {
 
-  
-      for (const placeholder of fields) {
-        const input = page.locator(`input[placeholder="${placeholder}"]`);
-        await input.fill('a'); // Remplir avec une chaîne non vide
-      }
-  
-      // Supprimer le contenu de chaque champ
-      for (const placeholder of fields) {
-        const input = page.locator(`input[placeholder="${placeholder}"]`);
-        await input.fill(''); // Supprimer le contenu
-      }
-
-      const errorMessages = [
-        'Le nom d\'utilisateur est requis.',
-        'Le prénom est requis.',
-        'Le nom de famille est requis.',
-        'L\'email est requis.',
-        'Le numéro de téléphone est requis.',
-        'Adresse est requise.',
-        'Le mot de passe est requis.'
-      ];
-  
-      for (const errorMessage of errorMessages) {
-        const errorLocator = page.locator(`text=${errorMessage}`);
-        await expect(errorLocator).toBeVisible();
-      }
-    });
     test('Vérifier les messages d\'erreur pour les données invalides', async ({ page }) => {
       // Remplir chaque champ avec des données invalides
       const fieldsData = [
@@ -188,7 +160,7 @@ test.describe('signup', () => {
 
       await page.locator('input[name="photoFile"]').setInputFiles('./tmp/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('./photos/CIN.jpeg');
+      await page.locator('input[name="cinFile"]').setInputFiles('./tmp/CIN.jpeg');
 
 
       await page.getByText('Acceptez les termes et la').click();

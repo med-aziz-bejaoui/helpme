@@ -26,10 +26,6 @@ jobs:
         path: playwright-report/
         retention-days: 30
 
-    # Pause for 2 minutes
-    - name: Wait for 2 minutes before compressing the report
-      run: sleep 120
-
     - name: Compress report
       run: zip -r playwright-report.zip playwright-report
 
