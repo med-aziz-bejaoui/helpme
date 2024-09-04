@@ -29,8 +29,8 @@
         "erreurmessagevalue": "Le nom d'utilisateur est requis"
     },
     "agencrmexemple": {
-      "username": "agen20",
-      "email": "emailagent20@example.com",
+      "username": "agen21",
+      "email": "emailagent21@example.com",
       "password": "Forzalaroma12@",
       "confirmPassword": "Forzalaroma12@",
       "lastName": "bejaoui",
@@ -61,8 +61,8 @@
       "submit": "div.container-login100-form-btn a.login100-form-btn.btn-primary"
     },
     "Adminexemple": {
-      "username": "admin2",
-      "email": "emailadmin2@example.com",
+      "username": "admin3",
+      "email": "emailadmin3@example.com",
       "password": "Forzalaroma12@",
       "confirmPassword": "Forzalaroma12@",
       "lastName": "bejaoui",
