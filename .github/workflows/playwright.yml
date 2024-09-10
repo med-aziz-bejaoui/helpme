@@ -29,21 +29,14 @@ jobs:
         run: npx playwright test
         continue-on-error: true
       
-      # Téléchargement du rapport de test
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
-
-      # Compression du rapport
-      - name: Compress report
-        run: tar -czf playwright-report.tar.gz playwright-report
+      - name: Extract and compress index.html
+        run: |
+          cd playwright-report
+          tar -czf rapport.tar.gz index.html
 
 
       # Envoi du rapport par e-mail
-      - name: Send email with the report
+      - name: Send email with the compressed index.html
         if: always()
         uses: dawidd6/action-send-mail@v3
         with:
@@ -51,23 +44,10 @@ jobs:
           server_port: 587
           username: mohamed-aziz.bejaoui@enis.tn
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: Playwright Test Report
-          body: Please find the attached Playwright test report.
-          to: bej939@gmail.com
+          subject: Playwright Test Report (rapport)
+          body: Please find the attached Playwright test report (rapport).
+          to: bej9390@gmail.com
           from: mohamed-aziz.bejaoui@enis.tn
-          attachments: playwright-report.zip
+          attachments: playwright-report/rapport.tar.gz
 
-      # Nouvelle section pour la construction et le push de l'image Docker
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
       
-      # Construction de l'image Docker
-      - name: Build Docker Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/playwrightapp:latest .
-
-      # Push de l'image Docker vers Docker Hub
-      - name: Push Docker Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/playwrightapp:latest
