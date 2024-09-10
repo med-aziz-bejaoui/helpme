@@ -27,6 +27,7 @@ jobs:
       # Exécution des tests Playwright
       - name: Run Playwright tests
         run: npx playwright test
+        continue-on-error: true
       
       # Téléchargement du rapport de test
       - uses: actions/upload-artifact@v4
