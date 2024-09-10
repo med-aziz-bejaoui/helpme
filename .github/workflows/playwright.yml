@@ -39,7 +39,8 @@ jobs:
 
       # Compression du rapport
       - name: Compress report
-        run: zip -r playwright-report.zip playwright-report
+        run: tar -czf playwright-report.tar.gz playwright-report
+
 
       # Envoi du rapport par e-mail
       - name: Send email with the report
