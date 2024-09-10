@@ -12,10 +12,10 @@ test.describe('signup', () => {
 
       // Remplir chaque champ avec des données valides
       const fieldsData = {
-        'Nom d\'utilisateur': 'AZIZBEJAOUIII',
+        'Nom d\'utilisateur': 'AZIZZZ',
         'Prénom': 'Aziz',
         'Nom de famille': 'Bejaoui',
-        'Email': 'Mohamed-Aziz.Bejaouiii@enis.tn',
+        'Email': 'Mohamed-Aziz28@enis.tn',
         'Numéro de téléphone': '58959397',
         'Adresse principale': 'Tunis,Tunisie',
         'Entrez votre nouveau mot de passe': 'StrongPassword123!',
@@ -40,7 +40,7 @@ test.describe('signup', () => {
 
       await page.locator('input[name="photoFile"]').setInputFiles('./tmp/eminem.jpg');
 
-      await page.locator('input[name="cinFile"]').setInputFiles('./tmp/cinAziz.pdf');
+      await page.locator('input[name="cinFile"]').setInputFiles('./tmp/CIN.jpeg');
 
                                                                                                                                                                    
       await page.getByText('Acceptez les termes et la').click();
@@ -71,14 +71,15 @@ test.describe('signup', () => {
       const billingCountry = 'TN';
       await page.selectOption('select#billingCountry', billingCountry);
       
-      for (let i = 0; i <= 5; i++) {
-        await page.getByTestId(`sms-code-input-${i}`).fill(`0`);
-      }
+  
     
      // await page.check('input#enableStripePass');
+     await page.getByLabel('Securely save my information').click();
 
-     // await page.locator('input[id="phoneNumber"]').fill(fieldsData['Numéro de téléphone']);
+     //await page.locator('input[id="phoneNumber"]').fill(fieldsData['Numéro de téléphone']);
+     const phoneNumber = fieldsData['Numéro de téléphone'];
 
+     await page.fill('#phoneNumber', phoneNumber);
   // Sélectionner le bouton par son attribut data-testid
       const subscribeButton = page.locator('[data-testid="hosted-payment-submit-button"]');
   // Cliquer sur le bouton
