@@ -106,7 +106,7 @@ test.describe('Tests de la liste des utilisateurs', () => {
 
 
 test('Modification du nom et prénom d\'un utilisateur', async ({ page }) => {
-    const nomRecherche = 'Bejaoui';
+    const nomRecherche = 'Mohamed';
     const nouveauNom = 'Doe';
     const nouveauPrenom = 'John';
 
@@ -158,5 +158,5 @@ test('Modification du nom et prénom d\'un utilisateur', async ({ page }) => {
         }
     }
 
-    expect(userFound).toBeTruthy();
+    expect(userFound).  toBeTruthy();
 })})
