@@ -4,13 +4,13 @@ import config from './variables.json';
 
 const { loginurl,usernamePlaceholder, passwordPlaceholder, loginButton } = config.loginPage;
 
-  test.describe('login', () => {
+  test.describe(' login ', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto('');
       await page.getByRole('link', { name: loginButton }).click();
       await expect(page).toHaveURL(loginurl);
     });
-     test('Connexion réussie avec des identifiants valides', async ({ page }) => {
+     test(' Connexion réussie avec des identifiants valides ', async ({ page }) => {
       const { usernamevalide, passwordvalide,dashboard } = config.loginvalide;
       await page.getByPlaceholder(usernamePlaceholder).fill(usernamevalide);
       await page.getByPlaceholder(passwordPlaceholder).fill(passwordvalide);

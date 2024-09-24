@@ -12,10 +12,10 @@ test.describe('signup', () => {
 
       // Remplir chaque champ avec des données valides
       const fieldsData = {
-        'Nom d\'utilisateur': 'AZIZZZ',
+        'Nom d\'utilisateur': 'AZIZZZz',
         'Prénom': 'Aziz',
         'Nom de famille': 'Bejaoui',
-        'Email': 'Mohamed-Aziz28@enis.tn',
+        'Email': 'Mohamed-Aziz29@enis.tn',
         'Numéro de téléphone': '58959397',
         'Adresse principale': 'Tunis,Tunisie',
         'Entrez votre nouveau mot de passe': 'StrongPassword123!',
