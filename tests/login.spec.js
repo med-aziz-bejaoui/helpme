@@ -29,7 +29,7 @@ const { loginurl,usernamePlaceholder, passwordPlaceholder, loginButton } = confi
       await expect(errorMessage).toContain(erreurmessagevalue);
     })
     test('Échec de connexion avec un champ mot de passe vide', async ({ page }) => {
-      // create a new todo locator
+      // create  a new todo locator
       const { usernamevalide,erreurmessagelocator, erreurmessagevalue} = config.loginpassvide;
       await page.getByPlaceholder(passwordPlaceholder).click();
       await page.getByPlaceholder(usernamePlaceholder).fill(usernamevalide);
